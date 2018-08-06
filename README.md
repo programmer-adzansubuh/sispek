@@ -1,2 +1,2 @@
-# sispek
+# SISPEK
 Aplikasi Sistem Kependudukan 

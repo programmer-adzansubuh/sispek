@@ -42,7 +42,7 @@ body {
 /* Fake image */
 .fakeimg {
     background-color: #ffdd6c;
-    width: 100%;
+    width: 80%;
     padding: 20px;
     margin-right: 50px;
 }
@@ -168,3 +168,6 @@ li.dropdown {
     background-color: #2979ff;
     color: white;
 }
+
+
+ 

@@ -1,10 +1,9 @@
 <?php 
 
-require 'functions.php';
+require '../functions.php';
 $penduduk = query("SELECT tabelalamat.blok, tabelpenduduk.nik, tabelpenduduk.tempat_lahir, tabelpenduduk.tanggal_lahir, tabelpenduduk.agama, tabelpenduduk.nama, tabelpenduduk.jenis_kelamin, tabelpenduduk.status_perkawinan, tabelpenduduk.status_dan_keluarga FROM tabelalamat INNER JOIN tabelpenduduk");
 
- ?> 
-
+?> 
 
 <!doctype html>
 <html lang="en">
@@ -14,8 +13,7 @@ $penduduk = query("SELECT tabelalamat.blok, tabelpenduduk.nik, tabelpenduduk.tem
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -44,8 +42,8 @@ $penduduk = query("SELECT tabelalamat.blok, tabelpenduduk.nik, tabelpenduduk.tem
   <body>
     <div class="container-fluid">
     <h1 align="center">Data Warga</h1>
-    <input type="image" src="icon/add-user-male.png" width="50" height"50" data-toggle="modal" id="#modal" data-target="#modal-tambah-data">
-    <table id="data-warga" class="table table-striped table-bordered" style="width:100%">
+    <input type="image" src="../icon/add-user-male.png" width="50" height="50" data-toggle="modal" id="#modal" data-target="#modal-tambah-data">
+    <table id="data-warga" class="table table-hovered table-reponsive table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>No</th>
@@ -66,7 +64,7 @@ $penduduk = query("SELECT tabelalamat.blok, tabelpenduduk.nik, tabelpenduduk.tem
         <?php $i = 1; ?>
         <?php foreach ($penduduk as $pen) : ?>
             <tr>
-                <td><?php echo $i; ?></td>
+                <td><?php echo $i++; ?></td>
                 <td><?php echo $pen["nik"];?></td>
                 <td><?php echo $pen["nama"]; ?></td>
                 <td><?php echo $pen["tempat_lahir"]; ?></td>
@@ -77,9 +75,9 @@ $penduduk = query("SELECT tabelalamat.blok, tabelpenduduk.nik, tabelpenduduk.tem
                 <td><?php echo $pen["status_perkawinan"]?></td>
                 <td><?php echo $pen["status_dan_keluarga"]; ?></td>
                 <td>
-                <input type="image" src="icon/view-file.png" width="30" height="30" id="view-file">
-                <input type="image" src="icon/multi-edit.png" width="30" height"30">
-                <input type="image" src="icon/trash.png" width="30" height="30">
+                <a href=""><img class="btn-icon" src="../icon/ic_visible.png"/></a>
+                <a href=""><img class="btn-icon" src="../icon/ic_edit.png"/></a>
+                <a href=""><img class="btn-icon" src="../icon/ic_delete.png"/></a>
                 </td>
             </tr>
           <?php endforeach; ?>
@@ -141,14 +139,16 @@ $penduduk = query("SELECT tabelalamat.blok, tabelpenduduk.nik, tabelpenduduk.tem
   </div>
 </div>
       <!--end modal -->
-    <script>
-        $(document).ready(function() {
-    $('#data-warga').DataTable();
-} );
-    </script>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="../js/bootstrap.js"></script>
   </body>
+
+    <script>
+        $(document).ready(function() {
+            $('#data-warga').DataTable();
+        });
+    </script>
+
 </html>

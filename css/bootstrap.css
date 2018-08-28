@@ -7759,3 +7759,8 @@ html {
     from{ bottom:-100px; opacity:0 } 
     to{ bottom:0; opacity:1 }
   }
+
+  .btn-icon {
+    width: 20px;
+    height: 20px;
+  }

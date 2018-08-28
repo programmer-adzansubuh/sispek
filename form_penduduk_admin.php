@@ -1,3 +1,11 @@
+<?php 
+
+require 'functions.php';
+$penduduk = query("SELECT tabelalamat.blok, tabelpenduduk.nik, tabelpenduduk.tempat_lahir, tabelpenduduk.tanggal_lahir, tabelpenduduk.agama, tabelpenduduk.nama, tabelpenduduk.jenis_kelamin, tabelpenduduk.status_perkawinan, tabelpenduduk.status_dan_keluarga FROM tabelalamat INNER JOIN tabelpenduduk");
+
+ ?> 
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -55,23 +63,26 @@
             </tr>
         </thead>
         <tbody>
+        <?php $i = 1; ?>
+        <?php foreach ($penduduk as $pen) : ?>
             <tr>
-                <td>1</td>
-                <td>12345</td>
-                <td>Nurdin</td>
-                <td>Bekasi</td>
-                <td>2011/04/25</td>
-                <td>Islam</td>
-                <td>Laki-Laki</td>
-                <td>Cikarang</td>
-                <td>Kawin</td>
-                <td>Kepala Keluarga</td>
+                <td><?php echo $i; ?></td>
+                <td><?php echo $pen["nik"];?></td>
+                <td><?php echo $pen["nama"]; ?></td>
+                <td><?php echo $pen["tempat_lahir"]; ?></td>
+                <td><?php echo $pen["tanggal_lahir"]; ?></td>
+                <td><?php echo $pen["agama"]; ?></td>
+                <td><?php echo $pen["jenis_kelamin"]; ?></td>
+                <td><?php echo $pen["blok"]; ?></td>
+                <td><?php echo $pen["status_perkawinan"]?></td>
+                <td><?php echo $pen["status_dan_keluarga"]; ?></td>
                 <td>
                 <input type="image" src="icon/view-file.png" width="30" height="30" id="view-file">
                 <input type="image" src="icon/multi-edit.png" width="30" height"30">
                 <input type="image" src="icon/trash.png" width="30" height="30">
                 </td>
             </tr>
+          <?php endforeach; ?>
         </tbody>
     </table>
 <!-- Modal -->

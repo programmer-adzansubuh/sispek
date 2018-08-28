@@ -2,7 +2,7 @@
 
 $conn = mysqli_connect("localhost", "root", "root", "DATA_PENDUDUK");
 
-	function query($query){
+	function query($query){https://programmeradzansubuh.000webhostapp.com/
 		global $conn;
 		$result = mysqli_query($conn, $query);
 		$rows = [];

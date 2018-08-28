@@ -1,9 +1,9 @@
 <?php 
 
 require 'functions.php';
-$penduduk = query("SELECT * FROM tabelpenduduk");
+$penduduk = query("SELECT tabelalamat.blok, tabelpenduduk.nik, tabelpenduduk.tempat_lahir, tabelpenduduk.tanggal_lahir, tabelpenduduk.agama, tabelpenduduk.nama, tabelpenduduk.jenis_kelamin, tabelpenduduk.status_perkawinan, tabelpenduduk.status_dan_keluarga FROM tabelalamat INNER JOIN tabelpenduduk");
 
- ?>
+ ?> 
 
 
 <!DOCTYPE html>
@@ -42,25 +42,28 @@ $penduduk = query("SELECT * FROM tabelpenduduk");
                 </tr>
             </thead>
             <tbody>
+
+            <?php $i = 1; ?>
             <?php foreach ($penduduk as $pen) : ?>
-            	
-            
                 <tr>
-                    <td></td>
+                    <td><?= $i ?></td>
                     <td><?php echo $pen["nik"]; ?></td>
                     <td><?php echo $pen["nama"]; ?></td>
                     <td><?php echo $pen["tempat_lahir"]; ?></td>
                     <td><?php echo $pen["tanggal_lahir"]; ?></td>
                     <td><?php echo $pen["agama"]; ?></td>
                     <td><?php echo $pen["jenis_kelamin"]; ?></td>
-                    <td></td>
+                    <td><?php echo $pen["blok"]; ?></td>
                     <td><?php echo $pen["status_perkawinan"]; ?></td>
                     <td><?php echo $pen["status_dan_keluarga"]; ?></td>
                     <td>
-                    	<a href="#">Edit</a>
-                    	<a href="#">Hapus</a>
+                    	<a href="#">Edit | </a>
+                    	<a href="#">Hapus | </a>
+                        <a href="#">Detail</a>
                     </td>
                 </tr>
+
+                 <?php $i++; ?>
             <?php endforeach; ?>    
                
         </table>

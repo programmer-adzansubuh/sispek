@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 20 Agu 2018 pada 21.56
+-- Generation Time: 29 Agu 2018 pada 01.38
 -- Versi Server: 10.0.34-MariaDB-0ubuntu0.16.04.1
 -- PHP Version: 5.6.31-4+ubuntu16.04.1+deb.sury.org+4
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tabelalamat` (
   `id_alamat` int(11) NOT NULL,
-  `no.rumah` varchar(20) NOT NULL,
+  `no_rumah` varchar(20) NOT NULL,
   `blok` varchar(5) NOT NULL,
   `rt` varchar(30) NOT NULL,
   `rw` varchar(30) NOT NULL,
@@ -41,8 +41,10 @@ CREATE TABLE `tabelalamat` (
 -- Dumping data untuk tabel `tabelalamat`
 --
 
-INSERT INTO `tabelalamat` (`id_alamat`, `no.rumah`, `blok`, `rt`, `rw`, `desa`, `kecamatan`, `kabupaten`) VALUES
-(1, '17', 'fk-3', '07', '014', 'Sukaragam', 'Serang Baru', 'Bekasi');
+INSERT INTO `tabelalamat` (`id_alamat`, `no_rumah`, `blok`, `rt`, `rw`, `desa`, `kecamatan`, `kabupaten`) VALUES
+(1, '17', 'fk-3', '07', '014', 'Sukaragam', 'Serang Baru', 'Bekasi'),
+(2, 'mega regenci', 'fu', '12', '13', 'sukaragam', 'serang baru', 'Bekasi'),
+(3, '21', 'H', '09', '011', 'sirnajaya', 'tanggeung', 'Cianjur');
 
 -- --------------------------------------------------------
 
@@ -174,7 +176,10 @@ CREATE TABLE `tabelpenduduk` (
 INSERT INTO `tabelpenduduk` (`id_penduduk`, `nik`, `nama`, `tempat_lahir`, `tanggal_lahir`, `id_alamat`, `no_hp`, `status_perkawinan`, `status_dan_keluarga`, `id_keluarga`, `jenis_kelamin`, `agama`) VALUES
 (1, 12345, 'Hadi Mulyana', 'Cianjur', '1990-10-14', 1, '082110833390', 'lajang', 'kepala keluarga', 1, 'laki-laki', 'islam'),
 (2, 12346, 'Taupik Ibrahim', 'Bekasi', '1998-08-07', 2, '08729918178', 'lajang', 'anak', 2, 'laki-laki', 'islam'),
-(3, 12347, 'Arif Bijaksana', 'Bogor', '1990-08-06', 2, '087720092998', 'lajang', 'anaka pertama', 2, 'laki-laki', 'islam');
+(3, 12347, 'Arif Bijaksana', 'Bogor', '1990-08-06', 2, '087720092998', 'lajang', 'anaka pertama', 2, 'laki-laki', 'islam'),
+(4, 32332, 'zohri', 'lombok', '2018-08-08', 1, '09887287917', 'lajang', 'kepala keluarga', 1, 'laki-laki', 'islam nusantara'),
+(5, 975295, 'Reza', 'Jnggol', '2000-07-29', 1, '09876434568', 'kawin', 'anak', 1, 'perempuan', 'islam'),
+(6, 1891721901, 'Jasmin', 'Solo', '2000-08-07', 3, '08978168171', 'nikah', 'ibu', 2, 'perempuan', 'katolik');
 
 -- --------------------------------------------------------
 
@@ -275,7 +280,7 @@ ALTER TABLE `tabel_berita`
 -- AUTO_INCREMENT for table `tabelalamat`
 --
 ALTER TABLE `tabelalamat`
-  MODIFY `id_alamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_alamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tabelkeluarga`
 --
@@ -285,7 +290,7 @@ ALTER TABLE `tabelkeluarga`
 -- AUTO_INCREMENT for table `tabelpenduduk`
 --
 ALTER TABLE `tabelpenduduk`
-  MODIFY `id_penduduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_penduduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

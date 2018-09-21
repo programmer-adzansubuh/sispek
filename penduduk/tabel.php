@@ -17,33 +17,47 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
 
   require_once '../koneksi.php';
 
-  $query= "SELECT tabelalamat.blok, tabelpenduduk.nik, tabelpenduduk.tempat_lahir, tabelpenduduk.tanggal_lahir, tabelpenduduk.agama, tabelpenduduk.nama, tabelpenduduk.jenis_kelamin, tabelpenduduk.status_perkawinan, tabelpenduduk.status_dan_keluarga FROM tabelalamat INNER JOIN tabelpenduduk";
+  $query = 
+          "SELECT 
+          tabelpenduduk.`nik`, 
+          tabelpenduduk.`nama`, 
+          tabelpenduduk.`tempat_lahir`, 
+          tabelpenduduk.`tanggal_lahir`, 
+          tabelpenduduk.`jenis_kelamin`,
+          tabelalamat.`no_rumah`,
+          tabelalamat.`blok`,
+          tabelalamat.`rt`,
+          tabelalamat.`rw`
+          FROM tabelpenduduk
+          INNER JOIN tabelalamat 
+          ON tabelalamat.`id_alamat` = tabelpenduduk.`id_alamat` ";
 
-  $response = mysqli_query($conn,$query);
+  $response = $conn->query($query);
 
     if (mysqli_num_rows($response) > 0) {
 
     $result = array();
     $i = 0;
-    while($data = mysqli_fetch_array($response)) {
+    while($data = $response->fetch_assoc()) {
 
           $result[] = array(
           $data["nik"],
           $data["nama"],
           $data["tempat_lahir"].", ".
           $data["tanggal_lahir"],
-          $data["agama"],
           $data["jenis_kelamin"],
-          $data["blok"],
-          $data["status_perkawinan"],
-          $data["status_dan_keluarga"],
+          "No. ".$data["no_rumah"].", ".
+          $data["blok"].", ".
+          "RT. ".$data["rt"].", ".
+          "RW. ".$data["rw"].", ",
 
-            "<div style='float:right;' class='action pointer'><a id='view' data-id1=".$data['ID_PETUGAS'].">
-          <span data-ripple><img src='../img/ic_edit.png' height='20'></img></span></a>"
+            "<a class='action pointer' id='view' data-id1=".$data['ID_PETUGAS'].">
+          <span data-ripple><img src='../img/ic_edit.png' height='20'></img></span></a>
+          &nbsp;&nbsp;"
           
-          ,
-
-            "<div style='float:right;' class='action pointer'><a id='del' data-id2=".$data['ID_PETUGAS']." >
+          .
+            "
+            <a class='action pointer' id='del' data-id2=".$data['ID_PETUGAS']." >
           <span data-ripple><img src='../img/ic_delete.png' height='20'></img></span></a>"
 
         );
@@ -60,15 +74,11 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
 <table id="tabl" class="table table-responsive table-hover " width="100%">
         <thead bgcolor="#F4F4F4">
           <th>NIK</th>
-          <th>Nama</th>
-          <th>TTL</th>
-          <th>Agama</th>
+          <th>Nama Lengkap</th>
+          <th>Tempat, Tgl Lahir</th>
           <th>Jenis Kelamin</th>
           <th>Alamat</th>
-          <th>Status Kawin</th>
-          <th>Status Dalam Keluarga</th>
           <th>Tindakan</th>   
-          <th></th>   
         </thead>
 
     </table>
@@ -92,7 +102,7 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
           data: tableData,
           responsive: true,
           "scrollX": scrollValue,
-          "aoColumnDefs": [{ "bSortable": false, "aTargets": [ 8, 9] }] 
+          "aoColumnDefs": [{ "bSortable": false, "aTargets": [5] }] 
 
       });
 

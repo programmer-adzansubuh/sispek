@@ -18,88 +18,6 @@ $title = "Data Penduduk";
 <script src="../js/dataTables/dataTables.bootstrap.js"></script>
 <script src="../js/dataTables/jquery.dataTables.js"></script>
 
-<style type="text/css">
-
-.icon-flipped {
-    transform: scaleX(-1);
-    -moz-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    -ms-transform: scaleX(-1);
-}
-
-#snackbar {
-    visibility: hidden;
-    min-width: 250px;
-    background-color: rgba(88,88,88, .7);
-    color: #fff;
-    text-align: center;
-    border-radius: 2px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1;
-    bottom: 30px;
-    font-size: 17px;
-}
-
-#snackbar.show {
-    visibility: visible;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-@-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
-}
-
-.p{
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-    transition: all 0.4s ease 0s;
-  -webkit-transform: rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -ms-transform: rotate(0deg);
-  -o-transform: rotate(0deg);
-  transform: rotate(0deg);
-}
-.p_active{
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  transform: rotate(180deg);
-  transition: all 0.4s ease 0s;
-}
-
-.fade-custom {
-    opacity: 0.2;
-    transition: opacity .25s ease-in-out;
-    -moz-transition: opacity .25s ease-in-out;
-    -webkit-transition: opacity .25s ease-in-out;
-}
-.fade-clear {
-    transition: opacity .25s ease-in-out;
-    -moz-transition: opacity .25s ease-in-out;
-    -webkit-transition: opacity .25s ease-in-out;
-}
-
-</style>
-
 <script type="text/javascript">
 
   $(document).ready(function(){
@@ -355,7 +273,6 @@ $title = "Data Penduduk";
                 <div id="data"></div>
             </div>
 
-            <div> <div id="snackbar">Penyimpanan berhasil..</div> </div>
           </div>
     </div>
 

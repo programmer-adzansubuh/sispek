@@ -24,13 +24,15 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
           tabelpenduduk.`tempat_lahir`, 
           tabelpenduduk.`tanggal_lahir`, 
           tabelpenduduk.`jenis_kelamin`,
+          tabelpenduduk.`terakhir_update`,
           tabelalamat.`no_rumah`,
           tabelalamat.`blok`,
           tabelalamat.`rt`,
           tabelalamat.`rw`
           FROM tabelpenduduk
           INNER JOIN tabelalamat 
-          ON tabelalamat.`id_alamat` = tabelpenduduk.`id_alamat` ";
+          ON tabelalamat.`id_alamat` = tabelpenduduk.`id_alamat` 
+          ORDER BY tabelpenduduk.`terakhir_update` DESC";
 
   $response = $conn->query($query);
 
@@ -84,7 +86,7 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
           <th>NIK</th>
           <th>Nama Lengkap</th>
           <th>Tempat, Tgl Lahir</th>
-          <th>Jenis Kelamin</th>
+          <th width="130px">Jenis Kelamin</th>
           <th>Alamat</th>
           <th bgcolor="#b7cbd4" width="20px">Edit</th>   
           <th bgcolor="#b7cbd4" width="20px">Hapus</th>

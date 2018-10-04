@@ -1,5 +1,5 @@
 <div align="right" style="float:right; display:inline-block; margin-right : 50px; margin-top:-90px;" id="floating">
-	<a id="btnCencel" data-ripple class="btn-floating btn-large">
+	<a id="backToHome" data-ripple class="btn-floating btn-large">
 		<img id="floating" src="../img/ic_close.png" width="15" height="15">
 	</a>
 </div>
@@ -105,4 +105,4 @@ $('#backToHome').click(function () {
 
 });
 
-    </script>
+</script>

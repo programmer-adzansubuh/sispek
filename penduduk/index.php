@@ -190,44 +190,24 @@ $title = "Data Penduduk";
 
         });
 
-
-        $('.jum').hide();
-
-        var jumlah_pesanan = $('.jum').val();
-        if(jumlah_pesanan == "0"){
-            $('.mybadge').hide();
-        }else{
-            $('.mybadge').fadeIn(3000);
-        }
-
-
-        $('#floating').hide();
-
-        $('.arrow').click(function() {
-
-            $(".icon").toggleClass("p_active");
-            $(".icon").toggleClass("p");
-
-		});
-
-        $('.arrow2').click(function() {
-
-            $(".icon2").toggleClass("p_active");
-            $(".icon2").toggleClass("p");
-
-        });
-
-
 		$.ajaxPrefilter(function( options, originalOptions, jqXHR ) { options.async = true; });
 
+        // id continer, edit-link dll nya di hide dulu, karena data nya belum ke load
 		$('#dataContainer').hide();
         $('#edit_link').hide();
         $('#tambah_link').hide();
 
+        //buat kondisi kalo data udah di load
 		if ($('#data').load('tabel.php')) {
-
+            
+            //nampilin container yang di atas di hide
 			$('#dataContainer').fadeIn();
+
         }
+
+        // tujuan nya supaya komponen lebih efisien, 
+        // karena browser gak akan membuat html yang di hide oleh jQuery,
+        // (kalo datanya udah ada baru deh browser buatin html komponen tersebut sama si jQuery)
 
 	});
 

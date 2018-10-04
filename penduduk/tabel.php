@@ -53,12 +53,13 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
 
             "<a class='action pointer' id='view' data-id1=".$data['ID_PETUGAS'].">
           <span data-ripple><img src='../img/ic_edit.png' height='20'></img></span></a>
-          &nbsp;&nbsp;"
-          
-          .
-            "
-            <a class='action pointer' id='del' data-id2=".$data['ID_PETUGAS']." >
-          <span data-ripple><img src='../img/ic_delete.png' height='20'></img></span></a>"
+          &nbsp;&nbsp;",
+
+            "<a class='action pointer' id='del' data-id2=".$data['ID_PETUGAS']." >
+          <span data-ripple><img src='../img/ic_delete.png' height='20'></img></span></a>",
+
+            "<a class='action pointer' id='del' data-id2=".$data['ID_PETUGAS']." >
+          <span data-ripple><img src='../img/ic_more_black.png' height='20'></img></span></a>"
 
         );
         
@@ -85,7 +86,9 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
           <th>Tempat, Tgl Lahir</th>
           <th>Jenis Kelamin</th>
           <th>Alamat</th>
-          <th>Tindakan</th>   
+          <th bgcolor="#b7cbd4" width="20px">Edit</th>   
+          <th bgcolor="#b7cbd4" width="20px">Hapus</th>
+          <th bgcolor="#b7cbd4" width="20px">Detail</th>
         </thead>
 
     </table>
@@ -109,7 +112,7 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
           data: tableData,
           responsive: true,
           "scrollX": scrollValue,
-          "aoColumnDefs": [{ "bSortable": false, "aTargets": [5] }] 
+          "aoColumnDefs": [{ "bSortable": false, "aTargets": [5, 6, 7] }] 
 
       });
 

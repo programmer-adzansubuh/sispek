@@ -2665,7 +2665,7 @@ html {
   .inputs:focus ~ .labels, .inputs:valid ~ .labels     {
     top:-15px;
     font-size:12px;
-      color:#03A9F4;
+    color:#03A9F4;
     font-style: bold;
   }
   .inputs:focus     { outline:none; }

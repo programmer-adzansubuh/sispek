@@ -1,8 +1,12 @@
-<!DOCTYPE html>
+<?php
 
+$title = "Data Penduduk";
+
+?>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>P2TL Admin</title>
+	<title>SISPEK - <?php echo $title; ?></title>
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,12 +17,6 @@
 <script src="../js/ripple.js"></script>
 <script src="../js/dataTables/dataTables.bootstrap.js"></script>
 <script src="../js/dataTables/jquery.dataTables.js"></script>
-
-<?php
-
-$title = "Data Penduduk";
-
-?>
 
 <style type="text/css">
 
@@ -106,18 +104,18 @@ $title = "Data Penduduk";
 
   $(document).ready(function(){
 
-                var level = '<?php echo $level; ?>';
-                
-                if (level == 'admin') {
-                    $('.for-admin-super').css({display: 'none'});
-                }
+        var level = '<?php echo $level; ?>';
+        
+        if (level == 'admin') {
+            $('.for-admin-super').css({display: 'none'});
+        }
 
-                if (level == 'superadmin') {
-                    $('.for-admin-rayon').css({display: 'none'});
-                }  
+        if (level == 'superadmin') {
+            $('.for-admin-rayon').css({display: 'none'});
+        }  
 
 
-            });
+    });
 
     $("#drop").hide();
 
@@ -222,27 +220,16 @@ $title = "Data Penduduk";
 
 		$.ajaxPrefilter(function( options, originalOptions, jqXHR ) { options.async = true; });
 
-		$('#tabelView').hide();
-        $('#floating').fadeIn();
+		$('#dataContainer').hide();
         $('#edit_link').hide();
         $('#tambah_link').hide();
 
-		if ($('#tabel').load('tabel.php')) {
+		if ($('#data').load('tabel.php')) {
 
-			$('#tabelView').fadeIn(1500);
-		}
-
+			$('#dataContainer').fadeIn();
+        }
 
 	});
-
-
-	$(document).ready(function() {
-
-			  $('#number').bind("cut copy paste drag drop", function(e) {
-			      e.preventDefault();
-			  });
-
-		});
 
 
 </script>
@@ -316,14 +303,14 @@ $title = "Data Penduduk";
 
  <div class="sidebar-wrapper" id="sidebar">
         <div >
-        <div align="center" style="display: block; padding-bottom: 10px; vertical-align: top; padding-top: 20px;  background-color: #b5b5b5;">
+        <div align="center" style="display: block; vertical-align: top; background-color: #b5b5b5;">
 
-            <img  style="display: inline-block; " src="../img/bapptl.png" height="100">
+            <img  style="display: inline-block; width:100%; " src="../img/banner_menu.jpg">
 
         </div>
             <br>
             <ul class="nav">
-                <small style="margin-left: 20px;"><font color="#d1d1d1">NAVIGASI OPSI</font></small>
+                <small style="margin-left: 20px;"><font color="#d1d1d1">MENU NAVIGASI</font></small>
                 <li >
                     <a href="../_dashboard" data-ripple-dark >
                         <img class="first-child" src="../img/ic_dashboard_out.png" height="25px" style="margin-right: 5px;" />
@@ -332,39 +319,39 @@ $title = "Data Penduduk";
                     </a>
                 </li>
                 <li>
-                    <a href="../_hasil" data-ripple-dark >
-                        <img class="first-child" src="../img/ic_hasil_out.png" height="25px" style="margin-right: 5px;" />
-                        <img class="last-child" src="../img/ic_hasil.png" height="25px" style="margin-right: 5px;" />
-                        <font color="#8c8c8c" class="text">Hasil Pemeriksaan</font>
+                    <a href="../penduduk" data-ripple-dark >
+                        <img class="first-child" src="../img/ic_people_out.png" height="25px" style="margin-right: 5px;" />
+                        <img class="last-child" src="../img/ic_people_in.png" height="25px" style="margin-right: 5px;" />
+                        <font color="#8c8c8c" class="text"> Data Penduduk</font>
                     </a>
                 </li>
                 <li class="for-admin-rayon">
-                    <a href="../_petugas" data-ripple-dark >
-                        <img class="first-child" src="../img/ic_admin_out.png" height="25px" style="margin-right: 5px;" />
-                        <img class="last-child" src="../img/ic_admin_in.png" height="25px" style="margin-right: 5px;" />
-                        <font color="#8c8c8c" class="text">Data Petugas</font>
+                    <a href="../kematian" data-ripple-dark >
+                        <img class="first-child" src="../img/ic_kematian_out.png" height="25px" style="margin-right: 5px;" />
+                        <img class="last-child" src="../img/ic_kematian_in.png" height="25px" style="margin-right: 5px;" />
+                        <font color="#8c8c8c" class="text"> Data Kematian</font>
                     </a>
                 </li>
                 
                 <li class="for-admin-super">
-                        <a href="../_rayon" data-ripple-dark >
-                            <img class="first-child" src="../img/ic_store_out.png" height="25px" style="margin-right: 5px;" />
-                            <img class="last-child" src="../img/ic_store.png" height="25px" style="margin-right: 5px;" />
-                            <font color="#8c8c8c" class="text">Unit Rayon</font>
+                        <a href="../iuran" data-ripple-dark >
+                            <img class="first-child" src="../img/ic_iuran_out.png" height="25px" style="margin-right: 5px;" />
+                            <img class="last-child" src="../img/ic_iuran_in.png" height="25px" style="margin-right: 5px;" />
+                            <font color="#8c8c8c" class="text"> Iuran Penduduk</font>
                         </a>
                 </li>
                 <li class="for-admin-super">
-                        <a href="../_admin" data-ripple-dark >
-                            <img class="first-child" src="../img/ic_admin_out.png" height="25px" style="margin-right: 5px;" />
-                            <img class="last-child" src="../img/ic_admin_in.png" height="25px" style="margin-right: 5px;" />
-                            <font color="#8c8c8c" class="text">Data Admin</font>
+                        <a href="../berita" data-ripple-dark >
+                            <img class="first-child" src="../img/ic_berita_out.png" height="25px" style="margin-right: 5px;" />
+                            <img class="last-child" src="../img/ic_berita_in.png" height="25px" style="margin-right: 5px;" />
+                            <font color="#8c8c8c" class="text"> Berita</font>
                         </a>
                     </li>
                 <li>
-                        <a href="../_laporan" data-ripple-dark >
+                        <a href="../laporan" data-ripple-dark >
                             <img class="first-child" src="../img/ic_laporan_out.png" height="25px" style="margin-right: 5px;" />
                             <img class="last-child" src="../img/ic_laporan.png" height="25px" style="margin-right: 5px;" />
-                            <font color="#8c8c8c" class="text"> Buat Laporan </font>
+                            <font color="#8c8c8c" class="text"> Laporan </font>
                         </a>
                     </li>
                 <hr>
@@ -380,19 +367,13 @@ $title = "Data Penduduk";
               <div><br>
                  <h2><?php echo $title; ?></h2>
                   <font size="2px" color="#B1B1B1"><p>> <a href="#">Home</a> /   <a href="#"> <?php echo $title; ?></a> <a id="edit_link" href="#"> > Lihat & Edit</a> <a id="tambah_link" href="#"> > Tambah</a> </p></font>
-
-                      <div align="right" style="float:right; display:inline-block; margin-right : 70px;" id="floating">
-                          <a id="launchModalBtn" data-ripple class="btn-floating btn-large">
-                              <img id="floating" src="../img/ic_add.png" width="15" height="15">
-                          </a>
-                      </div>
+  
               </div>
 
-            <div id="tabelView" class="panel" style='padding-left: 20px; padding-right: 20px; margin-top:40px; padding-top: 40px; padding-bottom: 20px;'>
-                <div id="tabel"></div>
+            <!-- untuk table -->
+            <div id="dataContainer" class="panel" style='padding-left: 20px; padding-right: 20px; margin-top:40px; padding-top: 40px; padding-bottom: 20px;'>
+                <div id="data"></div>
             </div>
-
-            <div id="view-data"></div>
 
             <div> <div id="snackbar">Penyimpanan berhasil..</div> </div>
           </div>
@@ -420,21 +401,6 @@ $(document).ready(function(){
 	Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), function(element){
 	  new RippleEffectDark(element);
     });
-
-});
-
-
-$(document).on('click','#launchModalBtn',function () {
-
-    $('#view-data').slideUp();
-    $('#floating').hide();
-    $('#tambah_link').show();
-
-    if ($('#view-data').load('input.php')) {
-        $('#view-data').fadeIn();
-    }
-
-    $('#tabelView').hide();
 
 });
 

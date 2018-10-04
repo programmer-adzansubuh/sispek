@@ -71,6 +71,13 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
   
  ?>
 
+<div align="right" style="float:right; display:inline-block; margin-right : 50px; margin-top:-70px;" id="floating">
+	<a id="btnTambah" data-ripple class="btn-floating btn-large">
+		<img id="floating" src="../img/ic_add.png" width="15" height="15">
+	</a>
+</div>
+
+
 <table id="tabl" class="table table-responsive table-hover " width="100%">
         <thead bgcolor="#F4F4F4">
           <th>NIK</th>
@@ -167,6 +174,17 @@ $(document).on('click','#del',function () {
 
 
     });
+
+$('#btnTambah').click(function () {
+
+    $('#tambah_link').show();
+
+    if ($('#data').load('input.php')) {
+        $('#data').fadeIn();
+    }
+
+
+});
 
 
 </script>

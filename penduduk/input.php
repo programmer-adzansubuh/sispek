@@ -139,8 +139,6 @@ $('#form').submit(function () {
 				alert('Gagal menyimpan ke database, terdapat kesalahan!');
 
 			}
-
-
 		},
 		error 		: function (error) {
 			alert(error)

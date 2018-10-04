@@ -25,6 +25,7 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
           tabelpenduduk.`tanggal_lahir`, 
           tabelpenduduk.`jenis_kelamin`,
           tabelpenduduk.`terakhir_update`,
+          tabelpenduduk.`id_penduduk`,
           tabelalamat.`no_rumah`,
           tabelalamat.`blok`,
           tabelalamat.`rt`,
@@ -53,14 +54,14 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
           "RT. ".$data["rt"].", ".
           "RW. ".$data["rw"].", ",
 
-            "<a class='action pointer' id='view' data-id1=".$data['ID_PETUGAS'].">
+            "<a class='action pointer' id='view' data-id1=".$data['id_penduduk'].">
           <span data-ripple><img src='../img/ic_edit.png' height='20'></img></span></a>
           &nbsp;&nbsp;",
 
-            "<a class='action pointer' id='del' data-id2=".$data['ID_PETUGAS']." >
+            "<a class='action pointer' id='del' data-id2=".$data['id_penduduk']." data-id2nama=".$data['nama']." >
           <span data-ripple><img src='../img/ic_delete.png' height='20'></img></span></a>",
 
-            "<a class='action pointer' id='del' data-id2=".$data['ID_PETUGAS']." >
+            "<a class='action pointer' id='del' data-id2=".$data['id_penduduk']." >
           <span data-ripple><img src='../img/ic_more_black.png' height='20'></img></span></a>"
 
         );
@@ -138,47 +139,45 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
 
   });
 
-$(document).on('click','#del',function () {
+$('#del').click(function () {
 
-          var data = new FormData();
+  var data = new FormData();
 
-          var id = $(this).data('id2');
+  var id = $(this).data('id2');
+  var nama = $(this).data('id2nama');
 
-          data.append('id', id);
+  data.append('id', id);
 
-          var value = data;
+  var value = data;
 
-      if (confirm('Apakah anda yakin ingin menghapus rayon ini?')) {
+  if (confirm('Apakah anda yakin ingin menghapus '+nama+'?')) {
 
-          $.ajax({
+    $.ajax({
 
-                  url        : "rayon_hapus.php",
-                  data       : value,
-                  async      : false,
-                  type       : "POST",
-                  success    : function(resps){
+      url        : "hapus.php",
+      data       : value,
+      async      : false,
+      type       : "POST",
+      success    : function(resps){
 
-                          alert(resps);
+         $('#data').load("tabel.php");
 
-                          $('#tabel').load("rayon_tampil_tabel.php");
+      },
+      cache: false,
+      contentType: false,
+      processData: false
+      
+    }); 
 
-                  },
-                  cache: false,
-                  contentType: false,
-                  processData: false
-              });
-              
-          
+  } else {
 
-      } else {
-
-      }
+  }
 
 
-      return false;
+  return false;
 
 
-    });
+});
 
 $('#btnTambah').click(function () {
 
@@ -187,7 +186,6 @@ $('#btnTambah').click(function () {
     if ($('#data').load('input.php')) {
         $('#data').fadeIn();
     }
-
 
 });
 

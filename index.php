@@ -33,17 +33,6 @@
             </li>
 
         </ul>
-            <!-- <div class="button"><a href="button"></a>
-                <li>
-                        <button class="button button1">Button</button>
-                        <button class="button button1">Button</button>
-                        
-                        <button class="button button1">Button</button>
-                        <button class="button button1">Button</button>
-                        
-                </li>
-
-            </div> -->
 
         <div class="row">
 

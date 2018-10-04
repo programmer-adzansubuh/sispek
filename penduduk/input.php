@@ -95,7 +95,7 @@
     <script src="../js/ripple.js"></script>
 <script>
 
-$('#btnCencel').click(function () {
+$('#backToHome').click(function () {
 
 	$('#tambah_link').hide();
 

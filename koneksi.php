@@ -9,5 +9,4 @@
 	
 	define(baseURL, 'http://localhost/');
 
-
  ?>

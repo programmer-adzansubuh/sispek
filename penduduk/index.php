@@ -280,11 +280,11 @@ $title = "Data Penduduk";
 
 </body>
 
-    <script src="../js/bootstrap.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/ripple.js"></script>
-    <script src="../js/dataTables/dataTables.bootstrap.js"></script>
-    <script src="../js/dataTables/jquery.dataTables.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/ripple.js"></script>
+<script src="../js/dataTables/dataTables.bootstrap.js"></script>
+<script src="../js/dataTables/jquery.dataTables.js"></script>
 
 <script type="text/javascript">
 

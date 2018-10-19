@@ -58,10 +58,10 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
           <span data-ripple><img src='../img/ic_edit.png' height='20'></img></span></a>
           &nbsp;&nbsp;",
 
-            "<a class='action pointer' id='del' data-id2=".$data['id_penduduk']." data-id2nama=".$data['nama']." >
+            "<a class='action pointer' id='delete' data-id_penduduk=".$data['id_penduduk']." data-nama_penduduk=".$data['nama']." >
           <span data-ripple><img src='../img/ic_delete.png' height='20'></img></span></a>",
 
-            "<a class='action pointer' id='del' data-id2=".$data['id_penduduk']." >
+            "<a class='action pointer' id='more' data-id2=".$data['id_penduduk']." >
           <span data-ripple><img src='../img/ic_more_black.png' height='20'></img></span></a>"
 
         );
@@ -123,27 +123,13 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
 
   });
 
-  $(document).on('click','#view',function () {
 
-  	var id = $(this).data("id1");
-
-  	$('#view-data').hide();
-  	$('#view-data').load("edit.php?id_rayon="+id);
-  	$('#tabelView').hide();
-    $('#floating').hide();
-    $('#edit_link').show();
-
-    $('#view-data').fadeIn(1000);
-
-
-  });
-
-$('#del').click(function () {
+$(document).on("click", "#delete", function() {
 
   var data = new FormData();
 
-  var id = $(this).data('id2');
-  var nama = $(this).data('id2nama');
+  var id = $(this).data('id_penduduk');
+  var nama = $(this).data('nama_penduduk');
 
   data.append('id', id);
 
@@ -159,7 +145,7 @@ $('#del').click(function () {
       type       : "POST",
       success    : function(resps){
 
-         $('#data').load("tabel.php");
+        $('#data').load("tabel.php");
 
       },
       cache: false,
@@ -168,23 +154,17 @@ $('#del').click(function () {
       
     }); 
 
-  } else {
-
   }
-
-
-  return false;
-
 
 });
 
 $('#btnTambah').click(function () {
 
-    $('#tambah_link').show();
+  $('#tambah_link').show();
 
-    if ($('#data').load('input.php')) {
-        $('#data').fadeIn();
-    }
+  if ($('#data').load('input.php')) {
+      $('#data').fadeIn();
+  }
 
 });
 

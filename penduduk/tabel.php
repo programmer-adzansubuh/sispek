@@ -54,11 +54,11 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
           "RT. ".$data["rt"].", ".
           "RW. ".$data["rw"].", ",
 
-            "<a class='action pointer' id='view' data-id1=".$data['id_penduduk'].">
+            "<a class='action pointer' id='edit' data-id_penduduk_edit=".$data['id_penduduk'].">
           <span data-ripple><img src='../img/ic_edit.png' height='20'></img></span></a>
           &nbsp;&nbsp;",
 
-            "<a class='action pointer' id='delete' data-id_penduduk=".$data['id_penduduk']." data-nama_penduduk=".$data['nama']." >
+            "<a class='action pointer' id='delete' data-id_penduduk_hapus=".$data['id_penduduk']." data-nama_penduduk=".$data['nama']." >
           <span data-ripple><img src='../img/ic_delete.png' height='20'></img></span></a>",
 
             "<a class='action pointer' id='more' data-id2=".$data['id_penduduk']." >
@@ -123,19 +123,29 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
 
   });
 
+$(document).on("click", "#edit", function () {
+  
+  var id = $(this).data('id_penduduk_edit');
+
+  if ($('#data').load('input_edit.php?id='+id)) {
+      $('#data').fadeIn();
+  }
+
+});
+
 
 $(document).on("click", "#delete", function() {
 
   var data = new FormData();
 
-  var id = $(this).data('id_penduduk');
+  var id = $(this).data('id_penduduk_hapus');
   var nama = $(this).data('nama_penduduk');
 
   data.append('id', id);
 
   var value = data;
 
-  if (confirm('Apakah anda yakin ingin menghapus '+nama+'?')) {
+  if (confirm('Apakah anda yakin ingin menghapus Nama : '+nama+'?')) {
 
     $.ajax({
 

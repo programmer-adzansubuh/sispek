@@ -4,7 +4,13 @@
 	</a>
 </div>
 
-<h3>Tambah Penduduk</h3>
+<?php
+
+$id = $_GET['id'];
+
+?>
+
+<h3>Edit Penduduk <?php echo "(".$id.")" ?></h3>
 
 <br>
 <br>

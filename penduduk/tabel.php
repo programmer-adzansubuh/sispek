@@ -83,18 +83,17 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
 
 
 <table id="tabl" class="table table-responsive table-hover " width="100%">
-        <thead bgcolor="#F4F4F4">
-          <th>NIK</th>
-          <th>Nama Lengkap</th>
-          <th>Tempat, Tgl Lahir</th>
-          <th width="130px">Jenis Kelamin</th>
-          <th>Alamat</th>
-          <th bgcolor="#b7cbd4" width="20px">Edit</th>   
-          <th bgcolor="#b7cbd4" width="20px">Hapus</th>
-          <th bgcolor="#b7cbd4" width="20px">Detail</th>
-        </thead>
-
-    </table>
+    <thead bgcolor="#F4F4F4">
+      <th>NIK</th>
+      <th>Nama Lengkap</th>
+      <th>Tempat, Tgl Lahir</th>
+      <th width="130px">Jenis Kelamin</th>
+      <th>Alamat</th>
+      <th bgcolor="#b7cbd4" width="20px">Edit</th>   
+      <th bgcolor="#b7cbd4" width="20px">Hapus</th>
+      <th bgcolor="#b7cbd4" width="20px">Detail</th>
+    </thead>
+</table>
 
 <script type="text/javascript" src="../js/ripple.js"></script>
 <script src="../js/bootstrap.js"></script>

@@ -136,7 +136,7 @@ $('#form').submit(function () {
 			//nah sekarang tinggal nangkep output sukses / gagal nya itu :
 			if(resps != 'sukses'){
 
-				alert('Gagal menyimpan ke database, terdapat kesalahan!');
+				alert('Gagal menyimpan ke database, terdapat kesalahan! (ini error nya : '+resps+')');
 
 			}
 		},

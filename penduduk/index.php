@@ -32,7 +32,6 @@ $title = "Data Penduduk";
             $('.for-admin-rayon').css({display: 'none'});
         }  
 
-
     });
 
     $("#drop").hide();

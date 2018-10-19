@@ -84,6 +84,7 @@
 	</div>
 
 	<input type="text" name="id_alamat" class="inputs" required>
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
 
 	<div class="form-inline" >
 	<br><div class="text-danger">
@@ -148,4 +149,11 @@ $('#form').submit(function () {
 
 });
 
+
 </script>
+
+
+<!-- Modal -->
+
+
+<!-- Akhir Modal -->

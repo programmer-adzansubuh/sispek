@@ -13,6 +13,7 @@ $title = "Data Penduduk";
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="../js/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="style.css">
 <link rel="stylesheet" type="text/css" href="../js/dataTables/dataTables.bootstrap.css">
 <script src="../js/ripple.js"></script>
 <script src="../js/dataTables/dataTables.bootstrap.js"></script>
@@ -162,7 +163,7 @@ $title = "Data Penduduk";
                 <h3 style="margin-top: 17px;"><font color="#fff"><?php echo $title; ?></font></h3>
             </li>
             <li>
-                <h4 style="margin-top: 20px;"  class="title-small"><font color="#fff">P2TL</font></h4>
+                <h4 style="margin-top: 20px;"  class="title-small"><font color="#fff"><?php echo $title; ?></font></h4>
             </li>
         </ul>
 
@@ -280,6 +281,7 @@ $title = "Data Penduduk";
 </body>
 
 <script src="../js/bootstrap.js"></script>
+<script src="../js/bootstrap-select.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/ripple.js"></script>
 <script src="../js/dataTables/dataTables.bootstrap.js"></script>

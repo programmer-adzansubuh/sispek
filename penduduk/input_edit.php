@@ -1,113 +1,507 @@
+<?php 
+
+	$id_penduduk = $_GET['id'];
+  	require_once '../koneksi.php';
+
+  	$query = 
+          "SELECT * FROM tabelpenduduk
+		  INNER JOIN tabelkeluarga
+		  ON tabelkeluarga.`id_keluarga` = tabelpenduduk.`id_keluarga`
+          INNER JOIN tabelalamat 
+          ON tabelalamat.`id_alamat` = tabelpenduduk.`id_alamat` 
+          WHERE tabelpenduduk.`id_penduduk` = '$id_penduduk' ";
+
+  	$response = $conn->query($query);
+
+    if (mysqli_num_rows($response) > 0) {
+    	while($data = $response->fetch_assoc()) {
+			$foto = $data['foto'];
+			$nama = $data['nama'];
+			$tempat_lahir = $data['tempat_lahir'];
+			$date_source = $data["tanggal_lahir"];
+			$date = new DateTime($date_source);
+			$tanggal_lahir = $date->format('Y-m-d');
+			$no_hp = $data['no_hp'];
+			$email = $data['email'];
+			$jenis_kelamin = $data['jenis_kelamin'];
+			$agama = $data['agama'];
+			$nik = $data['nik'];
+			$id_keluarga = $data['id_keluarga'];
+			$status_perkawinan = $data['status_perkawinan'];
+			$status_dlm_keluarga = $data['status_dlm_keluarga'];
+
+			$id_alamat = $data['id_alamat'];
+			$alamat = 
+			'No. Rumah. ' . $data['no_rumah'] . 
+			', Blok. ' . $data['blok'] . 
+			', RT/RW. ' . $data['rt'] . '/' . $data['rw'] .
+			', Desa. ' . $data['desa'] . 
+			', Kec. ' . $data['kecamatan'] . 
+			', Kab. ' . $data['kabupaten'];
+
+			$username = $data['nama_pengguna'];
+			$kata_sandi = $data['kata_sandi'];
+
+			$no_kk = $data['no_kk'];
+    	}    
+    }
+?>
+
 <div align="right" style="float:right; display:inline-block; margin-right : 50px; margin-top:-90px;" id="floating">
 	<a onclick="backToHome()" data-ripple class="btn-floating btn-large">
 		<img id="floating" src="../img/ic_close.png" width="15" height="15">
 	</a>
 </div>
 
-<?php
-
-$id = $_GET['id'];
-
-?>
-
-<h3>Edit Penduduk <?php echo "(".$id.")" ?></h3>
+<h3>Edit Penduduk</h3>
 
 <br>
 <br>
 
-<form id="form" method="POST" action="" enctype="multipart/form-data">
-	<div class="group">
-		<input type="text" name="nik" class="inputs" id="no_induk" required>
-		<span class="bar"></span>
-		<label class="labels">NIK : </label>
+<!-- Row Satu -->
+
+<div class="row">
+	<div class="col-lg-6">
+
+		<form id="form" method="POST" action="" enctype="multipart/form-data">
+
+			<div class="panel">
+				<div align="center">
+					<img src="<?php echo $foto; ?>" style="width:auto; height:140px; padding:10px" id="image_upload_preview">
+					<input type="file" name="foto" id="inputFile" class="btn btn-default" style="width:100%;">
+				</div>
+			</div>
+
+			<br>
+
+			<div class="group">
+				<input type="text" id="nama" class="inputs" value="<?php echo $nama ?>" required>
+				<span class="bar"></span>
+				<label class="labels">Nama Lengkap :</label>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="group">
+						<input type="text" id="tempat_lahir" class="inputs" value="<?php echo $tempat_lahir ?>" required>
+						<span class="bar"></span>
+						<label class="labels">Tempat Lahir :</label>
+					</div>
+				</div>
+
+				<div class="col-lg-6">
+					<div class="group">
+						<input type="date" id="tanggal_lahir" class="inputs" value="<?php echo $tanggal_lahir ?>" style="z-index: 1; padding-bottom: 4px;">
+						<span class="bar"></span>
+						<label class="labels">Tanggal Lahir :</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="group">
+						<input type="number" id="no_hp" class="inputs" value="<?php echo $no_hp ?>" required>
+						<span class="bar"></span>
+						<label class="labels">Nomor Handphone :</label>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="group">
+						<input type="text" id="email" value="<?php echo $email ?>" class="inputs" required>
+						<span class="bar"></span>
+						<label class="labels">Alamat Email :</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="group">
+						<select name="jenis_kelamin" id="jenis_kelamin" class="inputs">
+							<option value="<?php echo $jenis_kelamin ?>" selected>
+								<?php echo $jenis_kelamin ?>
+							</option>
+							<option disabled>- Ubah Jenis Kelamin-</option>
+							<option value="Laki-laki">Laki-laki</option>
+							<option value="Perempuan">Perempuan</option>
+						</select>
+						<span class="bar"></span>
+						<label class="labels">Jenis Kelamin :</label>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="group">
+						<select name="agama" id="agama" class="inputs">
+							<option value="<?php echo $agama ?>" selected>
+								<?php echo $agama ?>
+							</option>
+							<option disabled>- Update Agama-</option>
+							<option value="Islam">Islam</option>
+							<option value="Kristen">Kristen Protestan</option>
+							<option value="Hindu">Hindu</option>
+							<option value="Budha">Budha</option>
+							<option value="Budha">Katolik</option>
+							<option value="Hindu">Kong Hu Cu</option>
+						</select>
+						<span class="bar"></span>
+						<label class="labels">Agama :</label>
+					</div>
+				</div>
+			</div>
 	</div>
+	<!-- Akhir Row Satu -->
 
-	<div class="group">
-		<input type="text" name="nama" class="inputs" required>
-		<span class="bar"></span>
-		<label class="labels">Nama Lengkap :</label>
-	</div>
+	<!-- Row Dua -->
+	<div class="col-lg-6">
 
-	<div class="group">
-		<input type="text" name="tempat_lahir" class="inputs" required>
-		<span class="bar"></span>
-		<label class="labels">Tempat Lahir :</label>
-	</div>
+		<div class="group ">
+			<input type="number" id="nik" class="inputs" id="no_induk" value="<?php echo $nik ?>" required>
+			<span class="bar"></span>
+			<label class="labels">NIK : </label>
+		</div>
 
-	<div class="group">
-		<span style="margin-left:5px; font-size: 12px; color: #03A9F4;">Tanggal Lahir : </span>
-		<input type="date" name="tanggal_lahir" class="inputs" required>
-		<span class="bar"></span>
-	</div>
-
-	<div class="group">
-		<input type="number" name="no_hp" class="inputs" required>
-		<span class="bar"></span>
-		<label class="labels">Nomor Handphone :</label>
-	</div>
-
-	<div class="group">
-		<input type="text" name="status_perkawinan" class="inputs" required>
-		<span class="bar"></span>
-		<label class="labels">Status Perkawinan :</label>
-	</div>
-
-	<div class="group">
-		<input type="text" name="status_dalam_keluarga" class="inputs" required>
-		<span class="bar"></span>
-		<label class="labels">Status Dalam Keluarga :</label>
-	</div>
-
-	<div class="group">
-		<input type="text" name="id_keluarga" class="inputs" required>
-		<span class="bar"></span>
-		<label class="labels">Nomor KK / Nama KK :</label>
-	</div>
-
-	<div class="group">
-		<input type="text" name="jenis_kelamin" class="inputs" required>
-		<span class="bar"></span>
-		<label class="labels">Jenis Kelamin :</label>
-	</div>
-
-	<div class="group">
-		<input type="text" name="agama" class="inputs" required>
-		<span class="bar"></span>
-		<label class="labels">Agama :</label>
-	</div>
-
-	<div class="group">
-		<input type="text" name="nama_pengguna" class="inputs" required>
-		<span class="bar"></span>
-		<label class="labels">Username :</label>
-	</div>
-
-
-	<div class="group">
-		<input type="password" name="kata_sandi" class="inputs" required>
-		<span class="bar"></span>
-		<label class="labels">Password : </label>
-	</div>
-
-	<input type="text" name="id_alamat" class="inputs" required>
-	<button type="button" class="btn btn-primary" id="tambahAlamat">
-		Tambah Alamat</button>
-
-	<div class="form-inline">
 		<br>
-		<div class="text-danger">
-			*Harap isi semua data.
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="group">
+					<select name="status_perkawinan" id="status_perkawinan" class="inputs">
+						<option value="<?php echo $status_perkawinan ?>" selected>
+							<?php echo $status_perkawinan ?>
+						</option>
+						<option disabled>- Update Status-</option>
+						<option value="Kawin">Kawin</option>
+						<option value="Belum Kawin">Belum Kawin</option>
+						<option value="Duda/Janda">Duda/Janda</option>
+					</select>
+					<span class="bar"></span>
+					<label class="labels">Status Perkawinan :</label>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="group">
+					<select name="status_dalam_keluarga" id="status_dalam_keluarga" class="inputs">
+						<option value="<?php echo $status_dlm_keluarga ?>" selected>
+							<?php echo $status_dlm_keluarga ?>
+						</option>
+						<option disabled>- Update Status-</option>
+						<option value="Anak">Anak</option>
+						<option value="Kepala Keluarga">Kepala Keluarga</option>
+						<option value="Istri">Istri</option>
+					</select>
+					<span class="bar"></span>
+					<label class="labels">Status Dalam Keluarga :</label>
+				</div>
+			</div>
 		</div>
-		<div align="right">
-			<button id="simpan" type="submit" class="btn btn-success" style="width: 100px;">Simpan</button>
-			<button onclick="backToHome()" type="button" class="btn btn-default">Batal</button>
+
+		<div id="for-anak-istri">
+			<div class="labels-fixed">Nomor KK / Nama Kepala Keluarga. :</div>
+			<div class="group">
+				<input type="number" id="kkView" class="inputs" value="<?php echo $no_kk ?>" required readonly>
+				<span class="bar"></span>
+			</div>
 		</div>
+		<div id="for-kk">
+			<div class="labels-fixed">Update Nomor KK :</div>
+			<div class="group">
+				<input type="number" id="nomor_kk" class="inputs" value="<?php echo $no_kk ?>" required>
+				<span class="bar"></span>
+			</div>
+		</div>
+
+		<input type="number" id="id_keluarga" class="hidden" value="<?php echo $id_keluarga ?>" required>
+
+		<div class="group">
+			<textarea type="text" class="inputs" id="alamatView" required><?php echo $alamat ?></textarea>
+			<span class="bar"></span>
+			<label class="labels">Pilih Alamat : </label>
+		</div>
+
+		<!-- for id alamat -->
+		<input type="text" id="alamat" value="<?php echo $id_alamat ?>" class="hidden">
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="group">
+					<input type="text" id="nama_pengguna" class="inputs" value="<?php echo $username ?>" required>
+					<span class="bar"></span>
+					<label class="labels">Username :</label>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="group">
+					<input type="password" id="kata_sandi" class="inputs" value="<?php echo $password ?>" required>
+					<span class="bar"></span>
+					<label class="labels">Password : </label>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-inline">
+			<br>
+			<div class="text-danger">
+				*Harap isi semua data.
+			</div>
+			<div align="right">
+				<button id="save" type="button" class="btn btn-success" style="width: 100px;"><b>SIMPAN</b></button>
+				<button onclick="backToHome()" type="button" class="btn btn-default">BATAL</button>
+			</div>
+		</div>
+
+		</form>
+
+
+
 	</div>
+</div>
+<!-- Akhir Row Dua -->
 
-</form>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/ripple.js"></script>
+<script>
+
+	function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					$('#image_upload_preview').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+	}
+
+	$("#inputFile").change(function () {
+        readURL(this);
+    });
+	//buat function untuk tombol back
+	function backToHome(params) {
+
+		$('#tambah_link').hide();
+
+		if ($('#data').load('tabel.php')) {
+			$('#data').fadeIn();
+		}
+	}
+
+	$('#status_perkawinan').change(function() {
+		switch (this.value) {
+			case 'Belum Kawin':
+				$('#status_dalam_keluarga').val('Anak');
+				break;
+			case 'Kawin':
+				$('#status_dalam_keluarga').val('- Pilih Status -');
+				break;
+			case 'Duda/Janda':
+				$('#status_dalam_keluarga').val('- Pilih Status -');
+				break;
+			default:
+				break;
+		}
+	});
+
+	var status_dlm_keluarga = '<?php echo $status_dlm_keluarga ?>';
+	if (status_dlm_keluarga == 'Kepala Keluarga') {
+		$('#for-kk').show();
+		$('#for-anak-istri').hide();
+	} else {
+		$('#for-kk').hide();
+		$('#for-anak-istri').show();
+	}
+
+	var status_perkawinan = '<?php echo $status_perkawinan ?>';
+	if (status_perkawinan == 'Belum Kawin') {
+		$('#for-kk').hide();
+		$('#for-anak-istri').show();
+	}
+	
+	$('#status_dalam_keluarga').change(function() {
+		switch (this.value) {
+			case 'Anak':
+				$('#for-kk').hide();
+				$('#for-anak-istri').show();
+				break;
+			case 'Kepala Keluarga':
+				$('#for-kk').show();
+				$('#for-anak-istri').hide();
+				if ($('#status_perkawinan').val() == 'Belum Kawin' ) {
+					$('#status_perkawinan').val(0);
+				}
+				break;
+			case 'Istri':
+				$('#for-kk').hide();
+				$('#for-anak-istri').show();
+				if ($('#status_perkawinan').val() == 'Belum Kawin' ) {
+					$('#status_perkawinan').val(0);
+				}
+				break;
+			default:
+				break;
+		}
+	});
+
+	//aksi simpan
+	$('#save').click(function () {
+
+		var formData = new FormData();
+		formData.append('id', '<?php echo $id_penduduk ?>' );
+		formData.append('foto', $('#inputFile')[0].files[0]);
+		formData.append('nik', $('#nik').val() );
+		formData.append('nama', $('#nama').val() );
+		formData.append('tempat_lahir', $('#tempat_lahir').val() );
+		formData.append('tanggal_lahir', $('#tanggal_lahir').val() );
+		formData.append('no_hp', $('#no_hp').val() );
+		formData.append('email', $('#email').val() );
+		formData.append('status_perkawinan', $('#status_perkawinan').val() );
+		formData.append('status_dalam_keluarga', $('#status_dalam_keluarga').val() );
+		formData.append('id_keluarga', $('#id_keluarga').val() );
+		formData.append('jenis_kelamin', $('#jenis_kelamin').val() );
+		formData.append('agama', $('#agama').val() );
+		formData.append('nama_pengguna', $('#nama_pengguna').val() );
+		formData.append('kata_sandi', $('#kata_sandi').val() );
+		formData.append('id_alamat', $('#alamat').val() );
+		formData.append('no_kk', $('#nomor_kk').val() );
+		formData.append('status_dlm_keluarga_sebelum', '<?php echo $status_dlm_keluarga ?>' );
+		
+		$.ajax({
+			url: 'edit.php',
+			type: 'POST',
+			data: formData,
+			processData: false,  // tell jQuery not to process the data
+			contentType: false,  // tell jQuery not to set contentType
+			success : function(data) {
+				console.log(data);
+			}
+		})
+		.done(function(resp) {
+			console.log("response "+resp);
+			if (resp != "sukses") {
+				$.alert({
+					type: 'red',
+					title: 'Failure!',
+					content: 'Terjadi kesalahan : ( Error : ' + resp + " )",
+				});
+			} else {
+				$.confirm({
+					title: 'Succesfully!',
+					content: 'Berhasil disimpan.',
+					type: 'blue',
+					typeAnimated: true,
+					buttons: {
+						tryAgain: {
+							text: 'See Data List',
+							btnClass: 'btn-blue',
+							action: function(){
+								window.location = "../penduduk";
+							}
+						},
+						addNew: {
+							text: 'Add New',
+							action: function () {
+								$('#data').load('input.php');
+							}
+						}
+					}
+				});
+			}
+		})
+		.fail(function() {
+			console.log("error ");
+			$.alert({
+						title: 'Failure!'
+					});
+		})
+		.always(function() {
+			console.log("complete");
+		});
+	});
+
+
+	$(document).on('click', '#tambahAlamat', function () {
+		$('#modalTambah').modal();
+
+		$('#simpanAlamat').click(function () {
+
+			var no_rumah = $('#no_rumah').val(); 
+			var blok = $('#blok').val(); 
+			var rt = $('#rt').val(); 
+			var rw = $('#rw').val();
+			var desa = $('#desa').val();
+			var kecamatan = $('#kecamatan').val();
+			var kabupaten = $('#kabupaten').val();
+
+			$.ajax({
+				url: 'simpan_alamat.php',
+				type: 'POST',
+				dataType: 'html',
+				data: {
+					no_rumah: no_rumah, 
+					blok: blok, 
+					rt: rt, 
+					rw: rw,
+					desa: desa,
+					kecamatan: kecamatan,
+					kabupaten: kabupaten
+					},
+			})
+			.done(function(resp) {
+				console.log("response "+resp);
+				if (resp != 0) {
+					//berhasil
+					$('#alamatView').val(
+						'No. Rumah. ' + no_rumah + 
+						', Blok. ' + blok + 
+						', RT/RW. ' + rt + '/' + rw + 
+						', Desa. ' + desa + 
+						', Kec. ' + kecamatan + 
+						', Kab. ' + kabupaten);
+
+					$('#alamat').val(resp);
+
+					$('.modal').not($(this)).each(function () {
+						$(this).modal('hide');
+					});
+
+				} else {
+					alert('Terjadi kesalahan, Gagal menyimpan alamat.');
+				}
+			})
+			.fail(function() {
+				console.log("error ");
+				$.alert({
+							title: 'Failure!'
+						});
+			})
+			.always(function() {
+				console.log("complete");
+			});
+
+		});
+
+	});
 
 
 
+	$('.modal').on('show.bs.modal', function () {
+		$('.modal').not($(this)).each(function () {
+			$(this).modal('hide');
+		});
+	});
+
+
+	$("#alamatView").click(function () {
+		$('#modalPilihAlamat').modal();
+	});
+
+	$("#kkView").click(function () {
+		$('#modalPilihKK').modal();
+	});
+
+</script>
+
+
+<!-- Modal Dibawah ini-->
 
 
 <!-- Modal -->
@@ -123,13 +517,13 @@ $id = $_GET['id'];
 
 				<br>
 
-				<form action="">
+				<form id="form-alamat" method="POST" action="">
 
 					<div class="row">
 
 						<div class="col-lg-4">
 							<div class="group">
-								<input type="text" name="no_rumah" class="inputs" required>
+								<input type="text" id="no_rumah" class="inputs" required>
 								<span class="bar"></span>
 								<label class="labels">No. Rumah :</label>
 							</div>
@@ -137,7 +531,7 @@ $id = $_GET['id'];
 
 						<div class="col-sm-4">
 							<div class="group">
-								<input type="text" name="jenis_kelamin" class="inputs" required>
+								<input type="text" id="blok" class="inputs" required>
 								<span class="bar"></span>
 								<label class="labels">Blok :</label>
 							</div>
@@ -145,7 +539,7 @@ $id = $_GET['id'];
 
 						<div class="col-sm-2">
 							<div class="group">
-								<input type="text" name="jenis_kelamin" class="inputs" required>
+								<input type="text" id="rt" class="inputs" required>
 								<span class="bar"></span>
 								<label class="labels">RT :</label>
 							</div>
@@ -153,7 +547,7 @@ $id = $_GET['id'];
 
 						<div class="col-sm-2">
 							<div class="group">
-								<input type="text" name="jenis_kelamin" class="inputs" required>
+								<input type="text" id="rw" class="inputs" required>
 								<span class="bar"></span>
 								<label class="labels">RW :</label>
 							</div>
@@ -161,7 +555,7 @@ $id = $_GET['id'];
 
 						<div class="col-lg-12">
 							<div class="group">
-								<input type="text" name="jenis_kelamin" class="inputs" required>
+								<input type="text" id="desa" class="inputs" required>
 								<span class="bar"></span>
 								<label class="labels">Desa/Kelurahan :</label>
 							</div>
@@ -169,7 +563,7 @@ $id = $_GET['id'];
 
 						<div class="col-lg-12">
 							<div class="group">
-								<input type="text" name="jenis_kelamin" class="inputs" required>
+								<input type="text" id="kecamatan" class="inputs" required>
 								<span class="bar"></span>
 								<label class="labels">Kecamatan :</label>
 							</div>
@@ -177,7 +571,7 @@ $id = $_GET['id'];
 
 						<div class="col-lg-12">
 							<div class="group">
-								<input type="text" name="jenis_kelamin" class="inputs" value="Bekasi" required>
+								<input type="text" id="kabupaten" class="inputs" value="Bekasi" required>
 								<span class="bar"></span>
 								<label class="labels">Kabupaten :</label>
 							</div>
@@ -186,7 +580,7 @@ $id = $_GET['id'];
 					</div>
 
 					<div class="modal-footer">
-						<button id="simpanAlamat" type="submit" value="Simpan" class="btn btn-primary" style="width: 120px;">
+						<button id="simpanAlamat" type="button" class="btn btn-primary" style="width: 120px;">
 							Simpan
 						</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">
@@ -203,118 +597,221 @@ $id = $_GET['id'];
 
 <!-- Akhir Modal -->
 
+<!-- Modal Pilih Alamat-->
 
+<div class="modal fade" id="modalPilihAlamat">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+				<h4 class="modal-title">Pilih Alamat</h4>
+			</div>
+			<div class="modal-body">
 
+				<br>
 
+				<table id="tabel_alamat" class="table table-responsive table-hover " width="100%">
+					<thead bgcolor="#F4F4F4">
+						<th>No.Rmh</th>
+						<th>Blok</th>
+						<th>RT</th>
+						<th>RW</th>
+						<th>Desa</th>
+						<th>Kec</th>
+						<th>Kab</th>
+						<th bgcolor="#b7cbd4" width="20px">Pilih</th>
+					</thead>
+				</table>
 
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery-3.2.1.min.js"></script>
-<script src="../js/bootstrap.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/ripple.js"></script>
-<script>
-	//buat function untuk tombol back
-	function backToHome(params) {
+				<?php 
 
-		$('#tambah_link').hide();
+					require_once '../koneksi.php';
 
-		if ($('#data').load('tabel.php')) {
-			$('#data').fadeIn();
-		}
-	}
+					$query = "SELECT * FROM `tabelalamat` ORDER BY `id_alamat` DESC";
 
+					$response = $conn->query($query);
 
-	//aksi simpan
-	$('#form').submit(function () {
+					if (mysqli_num_rows($response) > 0) {
 
-		$.ajax({
+						$result = array();
+						$i = 0;
+						while($data = $response->fetch_assoc()) {
 
-			url: "simpan.php",
-			data: $("#form").serialize(),
-			type: "POST",
-			async: false,
-			cache: false,
-			success: function (resps) {
-				//sukses disini yaitu sukses dalam arti respon nya berjalan dengan benar
-				//bukan sukses nyimpnenya, nyimpennya mah belum tentu
+							$result[] = array(
+							$data["no_rumah"],
+							$data["blok"],
+							$data["rt"],
+							$data["rw"],
+							$data["desa"],
+							$data["kecamatan"],
+							$data["kabupaten"],
 
-				//jadi di file simpan.php saya berikan :
-				// output sukses jika (sukses)
-				// gagal jika (gagal/error nyimpennya)
+							"<a class='action pointer' id='get-pilih-alamat' 
+							data-id=".$data['id_alamat']." 
+							data-no=".$data['no_rumah']."
+							data-blok=".$data['blok']."
+							data-rt=".$data['rt']."
+							data-rw=".$data['rw']."
+							data-des=".$data['desa']."
+							data-kec=".$data['kecamatan']."
+							data-kab=".$data['kabupaten'].">
 
-				//nah sekarang tinggal nangkep output sukses / gagal nya itu :
-				if (resps != 'sukses') {
+							<span data-ripple><img src='../img/check_circle.png' class='icon-circle'></img></span></a>"
 
-					alert('Gagal menyimpan ke database, terdapat kesalahan! (ini error nya : ' + resps + ')');
+							);
 
-				}
-			},
-			error: function (error) {
-				alert(error)
-			}
+						}
 
-		});
+					}
 
-	});
+					?>
 
+				<script>
+					var tableData = <?php echo json_encode($result); ?>;
+					var scrollValue = false;
 
-	$(document).on('click', '#tambahAlamat', function () {
-		$('#modalTambah').modal();
+					if ($(window).width() < 700) {
+						scrollValue = true;
+					}
 
-
-		$('#sSimpan').click(function () {
-
-
-			var data = new FormData();
-
-			var ket = $("#ket").val();
-
-			jQuery.each(jQuery('#foto')[0].files, function (i, file) {
-
-				data.append('foto', file);
-				data.append('text', ket);
-
-			});
-
-			var values = data;
-
-			$.ajax({
-
-				url: "header_simpan.php",
-				data: values,
-				cache: false,
-				contentType: false,
-				processData: false,
-				type: "POST",
-				success: function (resp) {
-
-					$('.modal').not($(this)).each(function () {
-						$(this).modal('hide');
+					$('#tabel_alamat').DataTable({
+						data: tableData,
+						responsive: true
 					});
 
-					$('#tabel').load('header_tampil_tabel.php');
+					$(document).on('click', '#get-pilih-alamat', function () {
+						var id = $(this).data('id');
+						var no = $(this).data('no');
+						var blok = $(this).data('blok');
+						var rt = $(this).data('rt');
+						var rw = $(this).data('rw');
+						var des = $(this).data('des');
+						var kec = $(this).data('kec');
+						var kab = $(this).data('kab');
+						if ($('#alamatView').val('No. Rumah. ' + no + ', Blok. ' + blok + ', RT/RW. ' + rt + '/' + rw + ', Desa. ' +
+								des + ', Kec. ' + kec + ', Kab. ' + kab) && $('#alamat').val(id)) {
+							$("#modalPilihAlamat").modal('hide');
+						}
+					});
+				</script>
 
-					$('html,body').animate({
-						scrollTop: document.body.scrollHeight
-					}, "fast");
+				<br>
+				<div class="row modal-footer">
 
-				},
-				error: function (resp) {
+					<div class="col-lg-6" style="text-align:left;">
+						<span class="text-danger">*Centang kolom pilih untuk memilih alamat.</span>
+					</div>
 
-					alert("some error occured !");
-				}
-			});
-		});
+					<div class="col-lg-6">
+						<button type="button" class="btn btn-primary float-right" data-dismiss="modal" id="tambahAlamat">Tambah Alamat</button>
+					</div>
 
-	});
+				</div>
 
+			</div>
+		</div>
+	</div>
+</div>
 
+<!-- Akhir Modal Alamat -->
 
-	$('.modal').on('show.bs.modal', function () {
-		$('.modal').not($(this)).each(function () {
-			$(this).modal('hide');
-		});
+<div class="modal fade" id="modalPilihKK">
+	<div class="modal-dialog modal-md modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+				<h4 class="modal-title">Pilih Nomor KK / Nama Kepala Keluarga</h4>
+			</div>
+			<div class="modal-body">
 
+				<br>
 
-	});
-</script>
+				<table id="tabel_kk" class="table table-responsive table-hover " width="100%">
+					<thead bgcolor="#F4F4F4">
+						<th>ID</th>
+						<th>Nomor Kepala Keluarga</th>
+						<th>Nama Kepala Keluarga</th>
+						<th bgcolor="#a9daba" width="20px">Pilih</th>
+					</thead>
+				</table>
+
+				<?php 
+
+					require_once '../koneksi.php';
+
+					$query = "SELECT tabelkeluarga.`id_keluarga`, tabelkeluarga.`no_kk`, tabelpenduduk.`nama` FROM `tabelkeluarga` INNER JOIN `tabelpenduduk` ON `tabelkeluarga`.id_penduduk = `tabelpenduduk`.id_penduduk ORDER BY `tabelkeluarga`.id_keluarga DESC";
+
+					$response = $conn->query($query);
+
+					if (mysqli_num_rows($response) > 0) {
+
+						$result = array();
+						$i = 0;
+						while($data = $response->fetch_assoc()) {
+
+							$result2[] = array(
+							$data["id_keluarga"],
+							$data["no_kk"],
+							$data["nama"],
+
+							"<a class='action pointer' id='get-pilih-kk' 
+							data-id=".$data['id_keluarga']." 
+							data-nokk=".$data['no_kk']."
+							data-namakk=".$data['nama'].">
+
+							<span data-ripple><img src='../img/check_circle.png' class='icon-circle'></img></span></a>"
+
+							);
+
+						}
+
+					}
+
+					?>
+
+				<script>
+					var tableData = <?php echo json_encode($result2); ?>;
+					var scrollValue = false;
+
+					if ($(window).width() < 700) {
+						scrollValue = true;
+					}
+
+					var table2 = $('#tabel_kk').DataTable({
+						data: tableData,
+						responsive: true,
+						"aoColumnDefs": [{
+							"bSortable": false,
+							"aTargets": [3]
+						}]
+					});
+
+					$(table2.column(1).nodes()).addClass('name-highlight-blue');
+					$(table2.column(3).nodes()).addClass('name-highlight-green');
+
+					$(document).on('click', '#get-pilih-kk', function () {
+						var id = $(this).data('id');
+						var kk = $(this).data('nokk');
+						var nama = $(this).data('namakk');
+						if ($('#kkView').val(kk) && $('#id_keluarga').val(id)) {
+							$("#modalPilihKK").modal('hide');
+						}
+					});
+				</script>
+
+				<br>
+				<div class="row modal-footer">
+					<div style="text-align:left;">
+						<span class="text-danger">Jika Nomor KK / Nama Kepala Keluarga tidak ditemukan, silahkan input Kepala keluarga
+							terlebih dahulu.</span>
+					</div>
+					<br>
+					<div style="text-align:left;">
+						<span class="text-danger">Centang kolom pilih untuk memilih KK.</span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

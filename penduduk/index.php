@@ -7,14 +7,14 @@ $title = "Data Penduduk";
 <html>
 <head>
 	<title>sispek - <?php echo $title; ?></title>
-<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="../js/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="../css/style.css">
 <link rel="stylesheet" type="text/css" href="../js/dataTables/dataTables.bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../css/jquery-confirm.min.css">
 <script src="../js/ripple.js"></script>
 <script src="../js/dataTables/dataTables.bootstrap.js"></script>
 <script src="../js/dataTables/jquery.dataTables.js"></script>
@@ -114,19 +114,11 @@ $title = "Data Penduduk";
 		$('#dataContainer').hide();
         $('#edit_link').hide();
         $('#tambah_link').hide();
-
-        //buat kondisi kalo data udah di load
-		if ($('#data').load('tabel.php')) {
-            
-            //nampilin container yang di atas di hide
-			$('#dataContainer').fadeIn();
-
-        }
-
-        // tujuan nya supaya komponen lebih efisien, 
-        // karena browser gak akan membuat html yang di hide oleh jQuery,
-        // (kalo datanya udah ada baru deh browser buatin html komponen tersebut sama si jQuery)
-
+        
+        $('.loading').fadeOut('fast', function () {
+            $('#data').load('tabel.php');
+            $('#dataContainer').fadeIn();
+        });
 	});
 
 
@@ -267,7 +259,6 @@ $title = "Data Penduduk";
                   <font size="2px" color="#B1B1B1"><p>> <a href="#">Home</a> /   <a href="#"> <?php echo $title; ?></a> <a id="edit_link" href="#"> > Lihat & Edit</a> <a id="tambah_link" href="#"> > Tambah</a> </p></font>
   
               </div>
-
             <!-- untuk table -->
             <div id="dataContainer" class="panel" style='padding-left: 20px; padding-right: 20px; margin-top:40px; padding-top: 40px; padding-bottom: 20px;'>
                 <div id="data"></div>
@@ -278,14 +269,15 @@ $title = "Data Penduduk";
 
 </div>
 
+<div class="loading"></div>    
+
 </body>
 
-<script src="../js/bootstrap.js"></script>
-<script src="../js/bootstrap-select.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/ripple.js"></script>
 <script src="../js/dataTables/dataTables.bootstrap.js"></script>
 <script src="../js/dataTables/jquery.dataTables.js"></script>
+<script src="../js/jquery-confirm.min.js"></script>
 
 <script type="text/javascript">
 

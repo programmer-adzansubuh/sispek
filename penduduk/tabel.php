@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../css/style.css">
 <link rel="stylesheet" type="text/css" href="../js/dataTables/dataTables.bootstrap.css">
 <script src="../js/ripple.js"></script>
 <script src="../js/dataTables/dataTables.bootstrap.js"></script>
@@ -43,25 +44,32 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
     $i = 0;
     while($data = $response->fetch_assoc()) {
 
+          $date_source = $data["tanggal_lahir"];
+          $date = new DateTime($date_source);
+          $tanggal_lahir = $date->format('d-m-Y');
+
           $result[] = array(
           $data["nik"],
           $data["nama"],
           $data["tempat_lahir"].", ".
-          $data["tanggal_lahir"],
+          $tanggal_lahir,
           $data["jenis_kelamin"],
           "No. ".$data["no_rumah"].", ".
           $data["blok"].", ".
           "RT. ".$data["rt"].", ".
           "RW. ".$data["rw"].", ",
 
-            "<a class='action pointer' id='edit' data-id_penduduk_edit=".$data['id_penduduk'].">
+            "<a class='action pointer' id='edit' data-id_penduduk_edit=".$data['id_penduduk']."
+            data-toggle='tooltip' data-placement='left' title='Edit'>
           <span data-ripple><img src='../img/ic_edit.png' height='20'></img></span></a>
           &nbsp;&nbsp;",
 
-            "<a class='action pointer' id='delete' data-id_penduduk_hapus=".$data['id_penduduk']." data-nama_penduduk=".$data['nama']." >
+            "<a class='action pointer' id='delete' data-id_penduduk_hapus=".$data['id_penduduk']." 
+            data-nama_penduduk=".$data['nama']." data-toggle='tooltip' data-placement='bottom' title='Hapus'>
           <span data-ripple><img src='../img/ic_delete.png' height='20'></img></span></a>",
 
-            "<a class='action pointer' id='more' data-id2=".$data['id_penduduk']." >
+            "<a class='action pointer' id='detail' data-id_penduduk_detail=".$data['id_penduduk']." 
+            data-toggle='tooltip' data-placement='right' title='Detail'>
           <span data-ripple><img src='../img/ic_more_black.png' height='20'></img></span></a>"
 
         );
@@ -96,7 +104,6 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
 </table>
 
 <script type="text/javascript" src="../js/ripple.js"></script>
-<script src="../js/bootstrap.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/dataTables/dataTables.bootstrap.js"></script>
 <script src="../js/dataTables/jquery.dataTables.js"></script>
@@ -110,13 +117,25 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), fu
       scrollValue = true;
   }
 
-  $('#tabl').DataTable( {
-          data: tableData,
-          responsive: true,
-          "scrollX": scrollValue,
-          "aoColumnDefs": [{ "bSortable": false, "aTargets": [5, 6, 7] }] 
+  var table = $('#tabl').DataTable( {
+      data: tableData,
+      responsive: true,
+      "scrollX": scrollValue,
+      "aoColumnDefs": [{ "bSortable": false, "aTargets": [5, 6, 7] }] 
 
-      });
+  });
+
+  $( table.column( 5 ).nodes() ).addClass( 'editor-highlight' );
+  $( table.column( 6 ).nodes() ).addClass( 'editor-highlight' );
+  $( table.column( 7 ).nodes() ).addClass( 'editor-highlight' );
+  $( table.column( 0 ).nodes() ).addClass( 'date-highlight' );
+
+  $('#tabl tbody').on( 'mouseenter', 'td', function () {
+      var colIdx = table.cell(this).index().column;
+
+      $( table.cells().nodes() ).removeClass( 'highlight' );
+      $( table.column( colIdx ).nodes() ).addClass( 'highlight' );
+  });
 
 	Array.prototype.forEach.call(document.querySelectorAll('[data-ripple-dark]'), function(element){
   new RippleEffectDark(element);
@@ -127,9 +146,21 @@ $(document).on("click", "#edit", function () {
   
   var id = $(this).data('id_penduduk_edit');
 
-  if ($('#data').load('input_edit.php?id='+id)) {
+  $('.loading').fadeOut('fast', function () {
+      $('#data').load('input_edit.php?id='+id);
       $('#data').fadeIn();
-  }
+  });
+
+});
+
+$(document).on("click", "#detail", function () {
+  
+  var id = $(this).data('id_penduduk_detail');
+
+  $('.loading').fadeOut('fast', function () {
+      $('#data').load('detail.php?id='+id);
+      $('#data').fadeIn();
+  });
 
 });
 
@@ -145,26 +176,39 @@ $(document).on("click", "#delete", function() {
 
   var value = data;
 
-  if (confirm('Apakah anda yakin ingin menghapus Nama : '+nama+'?')) {
+  $.confirm({
+        title: 'Deletion Confirmation!',
+        content: 'Apakah anda yakin ingin menghapus Data : ' + nama + '?',
+        type: 'red',
+        buttons: {
+            somethingElse: {
+                text: 'Delete',
+                btnClass: 'btn-red',
+                keys: ['enter', 'shift'],
+                action: function(){
+                    btnClass: 'btn-red',
+                    $.ajax({
+                      url        : "hapus.php",
+                      data       : value,
+                      async      : false,
+                      type       : "POST",
+                      success    : function(resps){
 
-    $.ajax({
+                        window.location = "";
 
-      url        : "hapus.php",
-      data       : value,
-      async      : false,
-      type       : "POST",
-      success    : function(resps){
+                      },
+                      cache: false,
+                      contentType: false,
+                      processData: false
 
-        $('#data').load("tabel.php");
-
-      },
-      cache: false,
-      contentType: false,
-      processData: false
-      
-    }); 
-
-  }
+                    }); 
+                }
+            },
+            cancel: function () {
+              //
+            }
+        }
+    });
 
 });
 
@@ -172,13 +216,20 @@ $('#btnTambah').click(function () {
 
   $('#tambah_link').show();
 
-  if ($('#data').load('input.php')) {
+  $('.loading').fadeOut('fast', function () {
+      $('#data').load('input.php');
       $('#data').fadeIn();
-  }
+  });
+
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  });
 
 });
 
 
 </script>
+
+
 
 

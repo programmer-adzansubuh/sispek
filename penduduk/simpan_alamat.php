@@ -32,7 +32,7 @@ VALUES (
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "sukses";
+    echo mysqli_insert_id($conn);
     exit;
 } else {
     echo "gagal: " . $conn->error;

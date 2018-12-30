@@ -1,168 +1,173 @@
+<?php 
+
+$id_penduduk = $_GET['id'];
+require_once '../koneksi.php';
+
+  	$query = 
+          "SELECT * FROM tabelpenduduk
+		  INNER JOIN tabelkeluarga
+		  ON tabelkeluarga.`id_keluarga` = tabelpenduduk.`id_keluarga`
+          INNER JOIN tabelalamat 
+          ON tabelalamat.`id_alamat` = tabelpenduduk.`id_alamat` 
+		  INNER JOIN tabelkematian 
+          ON tabelkematian.`id_penduduk` = tabelpenduduk.`id_penduduk` 
+          WHERE tabelpenduduk.`id_penduduk` = '$id_penduduk' ";
+
+  	$response = $conn->query($query);
+
+    if (mysqli_num_rows($response) > 0) {
+    	while($data = $response->fetch_assoc()) {
+			$foto = $data['foto'];
+			$nama = $data['nama'];
+			$tempat_lahir = $data['tempat_lahir'];
+			$date_source = $data["tanggal_lahir"];
+			$date = new DateTime($date_source);
+			$tanggal_lahir = $date->format('Y-m-d');
+			$no_hp = $data['no_hp'];
+			$email = $data['email'];
+			$jenis_kelamin = $data['jenis_kelamin'];
+			$agama = $data['agama'];
+			$nik = $data['nik'];
+			$id_keluarga = $data['id_keluarga'];
+			$status_perkawinan = $data['status_perkawinan'];
+			$status_dlm_keluarga = $data['status_dlm_keluarga'];
+
+			$alamat = 
+			'No. Rumah. ' . $data['no_rumah'] . 
+			', Blok. ' . $data['blok'] . 
+			', RT/RW. ' . $data['rt'] . '/' . $data['rw'] .
+			', Desa. ' . $data['desa'] . 
+			', Kec. ' . $data['kecamatan'] . 
+			', Kab. ' . $data['kabupaten'];
+
+			$no_kk = $data['no_kk'];
+
+			$tanggal_kematian = $data['tanggal_kematian'];
+			$alamat_kematian = $data['alamat_kematian'];
+			$penyebab = $data['penyebab'];
+
+			$id_kematian = $data['id_kematian'];
+    	}    
+    }
+?>
 <div align="right" style="float:right; display:inline-block; margin-right : 50px; margin-top:-90px;" id="floating">
 	<a onclick="backToHome()" data-ripple class="btn-floating btn-large">
 		<img id="floating" src="../img/ic_close.png" width="15" height="15">
 	</a>
 </div>
 
-<?php
+<h3>Ubah Data Kematian</h3>
 
-$id = $_GET['id'];
-
-?>
-
-<h3>Edit Data Kematian <?php echo "(".$id.")" ?></h3>
-
-<br>
-<br>
-
-<form id="form" method="POST" action="" enctype="multipart/form-data">
-	<div class="group">
-		<input type="text" name="nik" class="inputs" id="no_induk" required>
-		<span class="bar"></span>
-		<label class="labels">NIK : </label>
+<div class="row">
+	<div class="col-lg-12">
+		<hr>
 	</div>
-
-	<div class="group">
-		<input type="text" name="nama" class="inputs" required>
-		<span class="bar"></span>
-		<label class="labels">Nama Lengkap :</label>
-	</div>
-
-	<div class="group">
-		<span style="margin-left:5px; font-size: 12px; color: #03A9F4;">Tanggal Kematian : </span>
-		<input type="date" name="tanggal_lahir" class="inputs" required>
-		<span class="bar"></span>
-	</div>
-
-	<div class="group">
-		<input type="text" name="alamat" class="inputs" required>
-		<span class="bar"></span>
-		<label class="labels">Alamat :</label>
-	</div>
-
-	<div class="group">
-		<input type="text" name="penyebab" class="inputs" required>
-		<span class="bar"></span>
-		<label class="labels">Penyebab :</label>
-	</div>
-
-	<div class="form-inline">
-		<br>
-		<div class="text-danger">
-			*Harap isi semua data.
+	<div class="col-lg-6">
+		<div class="">
+			<span style="font-size: 24px; color: grey;">Data Almarhum/ah</span>
+			<hr>
 		</div>
-		<div align="right">
-			<button id="simpan" type="submit" class="btn btn-success" style="width: 100px;">Simpan</button>
-			<button onclick="backToHome()" type="button" class="btn btn-default">Batal</button>
-		</div>
+		<table style="border: 1.5px solid #80808040" class="table table-striped table-responsive">
+			<tr>
+				<td width="220px">Nomor Induk Kependudukan</td>
+				<td width="10px">:</td>
+				<td id="nik"><?php echo $nik ?></td>
+			</tr>
+			<tr>
+				<td>Nama Lengkap</td>
+				<td>:</td>
+				<td>
+					<b id="nama"><?php echo $nama ?></b>
+				</td>
+			</tr>
+			<tr>
+				<td>Tempat Lahir</td>
+				<td>:</td>
+				<td id="tempat_lahir"><?php echo $tempat_lahir ?></td>
+			</tr>
+			<tr>
+				<td>Tanggal Lahir</td>
+				<td>:</td>
+				<td id="tanggal_lahir"><?php echo $tanggal_lahir ?></td>
+			</tr>
+			<tr>
+				<td>Jenis Kelamin</td>
+				<td>:</td>
+				<td id="jenis_kelamin"><?php echo $jenis_kelamin ?></td>
+			</tr>
+			<tr>
+				<td>Agama</td>
+				<td>:</td>
+				<td id="agama"><?php echo $agama ?></td>
+			</tr>
+			<tr>
+				<td>Alamat</td>
+				<td>:</td>
+				<td id="dataAlamat"><?php echo $alamat ?></td>
+			</tr>
+			<tr>
+				<td>Nomor Kartu Keluarga</td>
+				<td>:</td>
+				<td id="no_kk"><?php echo $no_kk ?></td>
+			</tr>
+			<tr>
+				<td>Status Perkawinan</td>
+				<td>:</td>
+				<td id="status_perkawinan"><?php echo $status_perkawinan ?></td>
+			</tr>
+			<tr>
+				<td>Status Dalam Keluarga</td>
+				<td>:</td>
+				<td id="status_dlm_keluarga"><?php echo $status_dlm_keluarga ?></td>
+			</tr>
+		</table>
 	</div>
 
-</form>
+	<div class="col-lg-6">
+		<div class="">
+			<span style="font-size: 24px; color: grey;">Keterangan Kematian</span>
+			<span style="float: right;">
+				<img src='../img/info.svg' height='24'>
+			</span>
+			<hr>
+		</div>
 
+		<input type="text" name="id_penduduk" id="id_penduduk" value='<?php echo $id_penduduk ?>' class='hidden'>
 
+		<div class="group">
+			<div class="labels-fixed">Tanggal & Jam Kematian :</div>
+			<input type="datetime-local" value="<?php echo date('Y-m-d\TH:i:s', strtotime($tanggal_kematian)); ?>" class="inputs" name="tanggal" id="tanggal_kematian" style="z-index: 1; padding-bottom: 4px;" />
+			<span class="bar"></span>
+		</div>
 
+		<div class="group">
+			<textarea type="text" name="penyebab" class="inputs" id="penyebab" required><?php echo $penyebab ?></textarea>
+			<span class="bar"></span>
+			<label class="labels">Penyebab :</label>
+		</div>
 
+		<div class="group">
+			<textarea type="text" name="alamat" class="inputs" id="alamat_kematian" required><?php echo $alamat_kematian ?></textarea>
+			<span class="bar"></span>
+			<label class="labels">Alamat kematian :</label>
+			<p style="color:#b1b4c1; margin-top:10px;">
+				*Abaikan alamat jika meninggal di alamat yang sama dengan data penduduk.
+			</p>
+		</div>
+		
 
-<!-- Modal -->
-
-<div class="modal fade" id="modalTambah">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-				<h4 class="modal-title">Tambah Alamat</h4>
+		<div class="form-inline">
+			<div class="text-danger">
+				*Tanggal, Jam & Penyebab wajib di isi.
 			</div>
-			<div class="modal-body">
-
-				<br>
-
-				<form action="">
-
-					<div class="row">
-
-						<div class="col-lg-4">
-							<div class="group">
-								<input type="text" name="no_rumah" class="inputs" required>
-								<span class="bar"></span>
-								<label class="labels">No. Rumah :</label>
-							</div>
-						</div>
-
-						<div class="col-sm-4">
-							<div class="group">
-								<input type="text" name="jenis_kelamin" class="inputs" required>
-								<span class="bar"></span>
-								<label class="labels">Blok :</label>
-							</div>
-						</div>
-
-						<div class="col-sm-2">
-							<div class="group">
-								<input type="text" name="jenis_kelamin" class="inputs" required>
-								<span class="bar"></span>
-								<label class="labels">RT :</label>
-							</div>
-						</div>
-
-						<div class="col-sm-2">
-							<div class="group">
-								<input type="text" name="jenis_kelamin" class="inputs" required>
-								<span class="bar"></span>
-								<label class="labels">RW :</label>
-							</div>
-						</div>
-
-						<div class="col-lg-12">
-							<div class="group">
-								<input type="text" name="jenis_kelamin" class="inputs" required>
-								<span class="bar"></span>
-								<label class="labels">Desa/Kelurahan :</label>
-							</div>
-						</div>
-
-						<div class="col-lg-12">
-							<div class="group">
-								<input type="text" name="jenis_kelamin" class="inputs" required>
-								<span class="bar"></span>
-								<label class="labels">Kecamatan :</label>
-							</div>
-						</div>
-
-						<div class="col-lg-12">
-							<div class="group">
-								<input type="text" name="jenis_kelamin" class="inputs" value="Bekasi" required>
-								<span class="bar"></span>
-								<label class="labels">Kabupaten :</label>
-							</div>
-						</div>
-
-					</div>
-
-					<div class="modal-footer">
-						<button id="simpanAlamat" type="submit" value="Simpan" class="btn btn-primary" style="width: 120px;">
-							Simpan
-						</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">
-							Batal
-						</button>
-					</div>
-
-				</form>
-
+			<div align="right">
+				<button id="save" type="button" class="btn btn-success" style="width: 100px;"><b>SIMPAN</b></button>
+				<button onclick="backToHome()" type="button" class="btn btn-default">BATAL</button>
 			</div>
 		</div>
 	</div>
 </div>
 
-<!-- Akhir Modal -->
-
-
-
-
-
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery-3.2.1.min.js"></script>
-<script src="../js/bootstrap.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/ripple.js"></script>
 <script>
@@ -176,98 +181,81 @@ $id = $_GET['id'];
 		}
 	}
 
-
-	//aksi simpan
-	$('#form').submit(function () {
-
-		$.ajax({
-
-			url: "simpan.php",
-			data: $("#form").serialize(),
-			type: "POST",
-			async: false,
-			cache: false,
-			success: function (resps) {
-				//sukses disini yaitu sukses dalam arti respon nya berjalan dengan benar
-				//bukan sukses nyimpnenya, nyimpennya mah belum tentu
-
-				//jadi di file simpan.php saya berikan :
-				// output sukses jika (sukses)
-				// gagal jika (gagal/error nyimpennya)
-
-				//nah sekarang tinggal nangkep output sukses / gagal nya itu :
-				if (resps != 'sukses') {
-
-					alert('Gagal menyimpan ke database, terdapat kesalahan! (ini error nya : ' + resps + ')');
-
-				}
-			},
-			error: function (error) {
-				alert(error)
-			}
-
-		});
-
-	});
-
-
-	$(document).on('click', '#tambahAlamat', function () {
-		$('#modalTambah').modal();
-
-
-		$('#sSimpan').click(function () {
-
-
-			var data = new FormData();
-
-			var ket = $("#ket").val();
-
-			jQuery.each(jQuery('#foto')[0].files, function (i, file) {
-
-				data.append('foto', file);
-				data.append('text', ket);
-
-			});
-
-			var values = data;
-
-			$.ajax({
-
-				url: "header_simpan.php",
-				data: values,
-				cache: false,
-				contentType: false,
-				processData: false,
-				type: "POST",
-				success: function (resp) {
-
-					$('.modal').not($(this)).each(function () {
-						$(this).modal('hide');
-					});
-
-					$('#tabel').load('header_tampil_tabel.php');
-
-					$('html,body').animate({
-						scrollTop: document.body.scrollHeight
-					}, "fast");
-
-				},
-				error: function (resp) {
-
-					alert("some error occured !");
-				}
-			});
-		});
-
-	});
-
-
-
 	$('.modal').on('show.bs.modal', function () {
 		$('.modal').not($(this)).each(function () {
 			$(this).modal('hide');
 		});
-
-
 	});
+
+
+	$("#cari").click(function () {
+		$('#modalPilihData').modal();
+	});
+
+	//aksi simpan
+	$('#save').click(function () {
+
+		var formData = new FormData();
+		formData.append('id_kematian', '<?php echo $id_kematian ?>' );
+		formData.append('id_penduduk', $('#id_penduduk').val() );
+		formData.append('tanggal_kematian', $('#tanggal_kematian').val() );
+		formData.append('penyebab', $('#penyebab').val() );
+		formData.append('alamat_kematian', $('#alamat_kematian').val() );
+
+		console.log(formData);
+
+		$.ajax({
+			url: 'edit.php',
+			type: 'POST',
+			data: formData,
+			processData: false,  // tell jQuery not to process the data
+			contentType: false,  // tell jQuery not to set contentType
+			success : function(data) {
+				console.log(data);
+			}
+		})
+		.done(function(resp) {
+			console.log("response "+resp);
+			if (resp != "sukses") {
+				$.alert({
+					type: 'red',
+					title: 'Failure!',
+					content: 'Terjadi kesalahan : ( Error : ' + resp + " )",
+				});
+			} else {
+				$.confirm({
+					title: 'Succesfully!',
+					content: 'Berhasil disimpan.',
+					type: 'blue',
+					typeAnimated: true,
+					buttons: {
+						tryAgain: {
+							text: 'See Data List',
+							btnClass: 'btn-blue',
+							action: function(){
+								window.location = "../kematian";
+							}
+						},
+						addNew: {
+							text: 'Add New',
+							action: function () {
+								$('#data').load('input.php');
+							}
+						}
+					}
+				});
+			}
+		})
+		.fail(function() {
+			console.log("error ");
+			$.alert({
+						title: 'Failure!',
+						content: 'Terjadi kesalahan'
+					});
+		})
+		.always(function() {
+			console.log("complete");
+		});
+	});
+
 </script>

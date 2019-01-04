@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 30 Des 2018 pada 07.53
+-- Generation Time: 04 Jan 2019 pada 21.47
 -- Versi Server: 5.7.24-0ubuntu0.18.04.1
 -- PHP Version: 7.2.13-1+ubuntu18.04.1+deb.sury.org+1
 
@@ -60,8 +60,19 @@ CREATE TABLE `tabeliuran` (
   `id_jenisiuran` int(11) NOT NULL,
   `id_keluarga` int(11) NOT NULL,
   `nominal` varchar(50) NOT NULL,
-  `tanggaliuran` date NOT NULL
+  `tanggaliuran` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tabeliuran`
+--
+
+INSERT INTO `tabeliuran` (`id_iuran`, `id_jenisiuran`, `id_keluarga`, `nominal`, `tanggaliuran`) VALUES
+(3, 1, 3, '30000', '2019-01-03 17:01:00'),
+(4, 8, 16, '20000', '2019-01-03 17:01:00'),
+(5, 1, 16, '30000', '2019-01-03 17:01:00'),
+(8, 8, 3, '20000', '2019-01-03 17:01:00'),
+(10, 8, 16, '20000', '2019-01-03 17:01:00');
 
 -- --------------------------------------------------------
 
@@ -70,14 +81,21 @@ CREATE TABLE `tabeliuran` (
 --
 
 CREATE TABLE `tabeljenisiuran` (
-  `id_jenuisiuran` int(11) NOT NULL,
+  `id_jenisiuran` int(11) NOT NULL,
   `nama_iuran` varchar(50) NOT NULL,
-  `nominal_iuran` int(11) NOT NULL,
+  `nominal_iuran` int(20) NOT NULL,
   `keterangan` varchar(100) NOT NULL,
-  `tanggal` date NOT NULL,
-  `bulan` varchar(50) NOT NULL,
-  `priode` varchar(50) NOT NULL
+  `periode` varchar(20) NOT NULL,
+  `tanggal_buat` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tabeljenisiuran`
+--
+
+INSERT INTO `tabeljenisiuran` (`id_jenisiuran`, `nama_iuran`, `nominal_iuran`, `keterangan`, `periode`, `tanggal_buat`) VALUES
+(1, 'Kebersihan', 30000, 'kebersihan', 'Minggu', '2019-01-03 17:00:00'),
+(8, 'Keamanan', 20000, '123', 'Bulan', '2019-01-04 12:25:32');
 
 -- --------------------------------------------------------
 
@@ -246,7 +264,7 @@ ALTER TABLE `tabeliuran`
 -- Indexes for table `tabeljenisiuran`
 --
 ALTER TABLE `tabeljenisiuran`
-  ADD PRIMARY KEY (`id_jenuisiuran`);
+  ADD PRIMARY KEY (`id_jenisiuran`);
 
 --
 -- Indexes for table `tabelkeluarga`
@@ -299,6 +317,16 @@ ALTER TABLE `tabel_berita`
 --
 ALTER TABLE `tabelalamat`
   MODIFY `id_alamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+--
+-- AUTO_INCREMENT for table `tabeliuran`
+--
+ALTER TABLE `tabeliuran`
+  MODIFY `id_iuran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `tabeljenisiuran`
+--
+ALTER TABLE `tabeljenisiuran`
+  MODIFY `id_jenisiuran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `tabelkeluarga`
 --
